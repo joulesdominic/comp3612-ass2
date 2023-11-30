@@ -1,0 +1,102 @@
+.nav-bar {
+    overflow: hidden;
+    background-color: #0b0c10;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+}
+
+.nav-list {
+    text-align: right;
+}
+
+.nav-list li {
+    list-style: none;
+    display: inline-block;
+    padding: 20px;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: #f7f7fc;
+    font-family: "Roboto", "Verdana", "Arial Black", sans-serif;
+    font-weight: bold;
+}
+
+.nav-bar a:hover {
+    color: #2e9cca;
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+/* Initially hide the hover text */
+.credits-info {
+    display: none;
+    background: #ccc;
+    position: fixed;
+    top: 10%;
+    left: 77%;
+    z-index: 1;
+}
+  
+  /* Show the hover text when hovering over the Credits link */
+.credits-link:hover + .credits-info {
+    display: block;
+}
+  
+
+
+body {
+    margin-top: 150px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+ul {
+    list-style: none;
+}
+  
+li {
+    margin-bottom: 5px;
+}
+
+.home-columns {
+    display: flex;
+}
+
+.home-col1,
+.home-col2,
+.home-col3 {
+    flex: 1;
+    margin: 0 10px; /* Adjust margins as needed */
+    border: 1px solid #ccc; /* Optional: Add borders for visualization */
+    padding: 10px;
+}
+
+/* Initially hide all views */
+.view {
+    display: none;
+    
+}
+
+/* Display the view with 'active' class */
+.view.active {
+    display: block;
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+th, td, .home-col3 ol li{
+    cursor: pointer;
+}

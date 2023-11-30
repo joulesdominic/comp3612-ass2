@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="main.css">
+    <script src="assign2.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href="#"><img src="logo.png" alt="Logo"></a>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#" data-view="search">Search</a></li>
+                <li><a href="#" data-view="playlist">Playlist</a></li>
+                <li><a href="#" class="credits-link">Credits</a></li>
+            </ul>
+            <div class="credits-info">
+                <p>Dominic</p>
+                <p>Github</p>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div id="home" class="view">
+            <h1>Welcome to Home!</h1>
+            <div class="home-columns">
+                
+                <div class="home-col1">
+                    <h2>Top Genres</h2>
+                </div>
+                <div class="home-col2">
+                    <h2>Top Artists</h2>
+                </div>
+                <div class="home-col3">
+                    <h2>Most Popular Songs</h2>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="search" class="view">
+            <h2>Search/Browse Songs</h2>
+            <div class="search-columns">
+                <div class="search-col1">
+                    <form>
+                        <div>
+                            <input type="radio" id="filter-title" name="filterBy" value="title" checked>
+                            <label for="filter-title">Title</label>
+                            <input type="text" id="search-text" placeholder="Search">
+                        </div>
+                        <div>
+                            <input type="radio" id="filter-artist" name="filterBy" value="artist">
+                            <label for="filter-artist">Artist</label>
+                            <select id="artist-dropdown">
+                                <!-- Artist names will go here -->
+                            </select>
+                        </div>
+                        <div>
+                            <input type="radio" id="filter-genre" name="filterBy" value="genre">
+                            <label for="filter-genre">Genre</label>
+                            <select id="genre-dropdown">
+                                <!-- Genre names will go here -->>
+                            </select>
+                        </div>
+                        <br>
+
+                        <button type="button" id="search-button">Search</button>
+                        <button type="button" id="clear-button">Clear Filters</button>
+                    </form>
+                </div>
+                <div class="search-col2">
+                    <table id="song-table">
+                        <thead>
+                            <tr>
+                                <th id="title-column-heading">Title</th>
+                                <th id="artist-column-heading">Artist</th>
+                                <th id="year-column-heading">Year</th>
+                                <th id="genre-column-heading">Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="song-results">
+                            <!-- Results go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div id="playlist" class="view">
+            <h2>Playlist Details</h2>
+            <div class="playlist-column">
+                <div class="playlist-col1">
+                    <table id="playlist-table">
+                        <thead>
+                            <tr>
+                                <th id="title-playlist-heading">Title</th>
+                                <th id="artist-playlist-heading">Artist</th>
+                                <th id="year-playlist-heading">Year</th>
+                                <th id="genre-playlist-heading">Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="in-playlist">
+                            <!-- Songs in playlist go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div id="details" class="view">
+            <h2>Song Details</h2>
+            <div class="details-column">
+                <div class="details-col1">
+                    <h3>Song Information</h3>
+                    <!-- Song info goes here -->
+                </div>
+                <div class="details-col2">
+                    <h3>Radar Chart</h3>
+                    <!-- Chart goes here -->
+                </div>
+            </div>
+        </div>
+        
+      </main>
+    
+    
+</body>
+</html>
