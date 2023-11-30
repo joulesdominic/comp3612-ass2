@@ -233,6 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //**********Start of Playlist functions
     function getSongDetails(row) {
       const [title, artist, year, genre] = row.querySelectorAll('td');
+
       return {
          title: title.textContent,
          artist: artist.textContent,
@@ -262,21 +263,77 @@ document.addEventListener("DOMContentLoaded", function() {
    // Fetch elements within the details view to display song information
    const detailsTitle = document.querySelector('.details-column .details-col1 h3');
    const detailsInfo = document.querySelector('.details-column .details-col1');
+
+   // Inside the showSongDetails function:
+   const radarData = {
+      labels: ['Danceability', 'Energy', 'Valence', 'Speechiness', 'Loudness', 'Liveness'],
+      datasets: [{
+         label: 'Song Attributes',
+         backgroundColor: 'rgba(54, 162, 235, 0.2)',
+         borderColor: 'rgba(54, 162, 235, 1)',
+         pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+         data: [
+            song.analytics.danceability,
+            song.analytics.energy,
+            song.analytics.valence,
+            song.analytics.speechiness,
+            (song.details.loudness + 60) * (100 / 60),
+            song.analytics.liveness,
+         ]
+      }]
+   };
+
+   const radarOptions = {
+      scale: {
+         ticks: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            stepSize: 20
+         }
+      }
+   };
+
+   // Get the canvas element and initialize the radar chart
+   const radarCanvas = document.getElementById('radarChart');
+   const radarChart = new Chart(radarCanvas, {
+      type: 'radar',
+      data: radarData,
+      options: radarOptions
+   });
+
    
    // Populate song details in the details view
    detailsTitle.textContent = song.title;
    
    // Construct the song details information and display it
-   const detailsHTML = `
-       <p>Title: ${song.title}</p>
-       <p>Artist: ${song.artist.name}</p>
-       <p>Genre: ${song.genre.name}</p>`;
+   const detailsHTML = 
+    `<p>Title: ${song.title}</p>
+    <p>Artist: ${song.artist.name}</p>
+    <p>Genre: ${song.genre.name}</p>
+    <p>Duration: ${formatDuration(song.details.duration)}</p>`;
    
+    const analyticsHTML = 
+    `<p>Energy: ${song.analytics.energy}%</p>
+    <p>Danceability: ${song.analytics.danceability}%</p>
+    <p>Liveness: ${song.analytics.liveness}%</p>
+    <p>Valence: ${song.analytics.valence}%</p>
+    <p>Acousticness: ${song.analytics.acousticness}%</p>
+    <p>Speechiness: ${song.analytics.speechiness}%</p>`;
+
    detailsInfo.innerHTML = detailsHTML;
+   detailsInfo.innerHTML += analyticsHTML;
    
    // Show the song details view
    showView('details');
 }
+
+   function formatDuration(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+   }
+
    //*********************End of Single View functions
 
    //********************Start of Event Listeners and View
@@ -346,14 +403,48 @@ document.addEventListener("DOMContentLoaded", function() {
          addToPlaylist(songDetails);
       }
    })
-   const playlistTable = document.getElementById('playlist-table');
+   const playlistTable = document.getElementById('in-playlist');
+
+   // Add an event listener to the playlist table
    playlistTable.addEventListener('click', function(event) {
-      const clickedElement = event.target.closest('#in-playlist td');
-      if (clickedElement) {
-          const clickedRow = clickedElement.parentNode;
-          const songDetails = getSongDetails(clickedRow);
-          showSongDetails(songDetails);
+      // Get the clicked row within the table
+      const clickedRow = event.target.closest('tr');
+
+      if (clickedRow) {
+         // Extract the song details from the clicked row
+         const songDetails = getSongDetails(clickedRow);
+
+         // Display the single view for the clicked song
+         showSongDetails(songDetails);
       }
-  });
+   });
+
+   const creditsLink = document.querySelector('.credits-link');
+   const creditsInfo = document.querySelector('.credits-info');
+
+   // Hide the credits info
+   creditsInfo.style.display = 'none';
+
+   // Function to display the credits info at the bottom
+   function displayCreditsInfo(event) {
+      event.preventDefault(); // Prevent default link behavior
+      const linkRect = creditsLink.getBoundingClientRect();
+      creditsInfo.style.display = 'block';
+      creditsInfo.style.bottom = `calc(100vh - ${linkRect.top}px)`;
+      creditsInfo.style.left = `${linkRect.left}px`;
+      setTimeout(() => {
+         creditsInfo.style.display = 'none';
+      }, 5000);
+   }
+
+   // Event listener for mouseenter to display credits info
+   creditsLink.addEventListener('mouseenter', displayCreditsInfo);
+
+   // Event listener for clicks on the document to hide the credits info
+   document.addEventListener('click', (event) => {
+      if (!creditsInfo.contains(event.target) && event.target !== creditsLink) {
+         creditsInfo.style.display = 'none';
+      }
+   });
 
 });

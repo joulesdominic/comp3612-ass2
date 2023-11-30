@@ -39,18 +39,20 @@
 /* Initially hide the hover text */
 .credits-info {
     display: none;
-    background: #ccc;
     position: fixed;
-    top: 10%;
+    top: 17%;
     left: 77%;
-    z-index: 1;
+    z-index: -1;
 }
   
   /* Show the hover text when hovering over the Credits link */
 .credits-link:hover + .credits-info {
     display: block;
 }
-  
+
+#github-link {
+    color: #0b0c10;
+}
 
 
 body {
@@ -71,13 +73,15 @@ li {
     margin-bottom: 5px;
 }
 
-.home-columns {
+.home-columns, .details-columns {
     display: flex;
 }
 
 .home-col1,
 .home-col2,
-.home-col3 {
+.home-col3,
+.details-col1,
+.details-col2 {
     flex: 1;
     margin: 0 10px; /* Adjust margins as needed */
     border: 1px solid #ccc; /* Optional: Add borders for visualization */
